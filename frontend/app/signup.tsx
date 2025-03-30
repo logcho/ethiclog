@@ -15,6 +15,7 @@ import Divider from '@/components/components/Divider'
 export default function HomeScreen() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [passwordCheck, setPasswordCheck] = React.useState('');
   const router = useRouter(); // Hook to get the router
 
   return (
@@ -23,7 +24,7 @@ export default function HomeScreen() {
       <View style={styles.center}>
         <View style={styles.landing}>
           <Text style={styles.header}>
-            Login
+            Sign Up
           </Text>
 
 
@@ -42,15 +43,23 @@ export default function HomeScreen() {
             onChangeText={setPassword}       // Update state when text changes
             secureTextEntry={true}       // Masks the password text
           />
+          <TextInput
+            style={styles.textBox}
+            placeholder="Verify Password"
+            placeholderTextColor="gray"  // Placeholder text color
+            value={passwordCheck}
+            onChangeText={setPasswordCheck}       // Update state when text changes
+            secureTextEntry={true}       // Masks the password text
+          />
           
-          <LoginButton title='Login' onPress={() => {
+          <LoginButton title='Sign Up' onPress={() => {
                 router.push('/(tabs)');  // Navigate to the login page
           }} />
 
           <Divider />
 
-          <SignUpButton title='Sign Up' onPress={() => {
-                router.push('/signup');  // Navigate to the login page
+          <SignUpButton title='Back' onPress={() => {
+                router.push('/');  // Navigate to the login page
           }} />
 
         </View>

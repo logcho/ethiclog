@@ -22,7 +22,7 @@ export default function TabTwoScreen() {
 
 const styles = StyleSheet.create({
   text: {
-    color: 'white',
+    // color: 'white',
     fontSize: 30,
   },
 });
