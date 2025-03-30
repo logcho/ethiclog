@@ -11,6 +11,7 @@ import React from 'react';
 import LoginButton from '@/components/components/LoginButton';
 import SignUpButton from '@/components/components/SignUpButton';
 import Divider from '@/components/components/Divider'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function HomeScreen() {
   const [email, setEmail] = React.useState('');
@@ -27,21 +28,34 @@ export default function HomeScreen() {
           </Text>
 
 
-          <TextInput
-            style={styles.textBox}
-            placeholder="Email"
-            placeholderTextColor="gray"  // Placeholder text color
-            value={email}
-            onChangeText={setEmail}       // Update state when text changes
-          />
-          <TextInput
-            style={styles.textBox}
-            placeholder="Password"
-            placeholderTextColor="gray"  // Placeholder text color
-            value={password}
-            onChangeText={setPassword}       // Update state when text changes
-            secureTextEntry={true}       // Masks the password text
-          />
+          <View style={styles.inputWrapper}>
+            <Ionicons name="mail-outline" size={20} color="gray" style={styles.icon} /> {/* Email Icon */}
+            <TextInput
+              style={styles.textBox}
+              placeholder="Email"
+              placeholderTextColor="gray"  // Placeholder text color
+              value={email}
+              onChangeText={setEmail}       // Update state when text changes
+            />
+          </View>
+          
+          <View style={styles.inputWrapper}>
+            <Ionicons name="lock-closed-outline" size={20} color="gray" style={styles.icon} /> {/* Lock Icon */}
+            <TextInput
+              style={styles.textBox}
+              placeholder="Password"
+              placeholderTextColor="gray"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={true}
+            />
+          </View>
+
+          <View style={styles.forgotWrapper}>
+            <Link href='/forgot' style={styles.forgot}>
+                Forgot Password?
+            </Link>
+          </View>
           
           <LoginButton title='Login' onPress={() => {
                 router.push('/(tabs)');  // Navigate to the login page
@@ -62,6 +76,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   wrapper: {
+    flex: 1,
     padding: 10,
   },
   stack: {
@@ -79,7 +94,7 @@ const styles = StyleSheet.create({
   },
   landing: {
     height: 800,
-    width: 400,
+    width: 300,
     justifyContent: 'center', // Centers vertically
   },
   text: {
@@ -92,11 +107,25 @@ const styles = StyleSheet.create({
     fontWeight: '200',      // Makes the text light
     marginVertical: 10,
     fontSize: 20,
-    borderBottomWidth: 1,         // Only the bottom border
-    borderBottomColor: '#ccc',    // Bottom border color (light gray)
     backgroundColor: 'transparent', // Transparent background
     paddingVertical: 8,
     borderWidth: 0,               // Ensure no border on focus or blur
     outlineWidth: 0,              // Remove focus outline
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,         // Only the bottom border
+    borderBottomColor: '#ccc',    // Bottom border color (light gray)
+  },
+  icon: {
+    marginHorizontal: 10,
+  },
+  forgotWrapper: {
+    marginTop: 20,
+  },
+  forgot: {
+    color: '#2A9DF4',
+    textAlign: 'right',
   },
 });

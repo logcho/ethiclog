@@ -8,12 +8,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, useRouter } from 'expo-router';
 import React from 'react';
 
-import LoginButton from '@/components/components/LoginButton';
-import SignUpButton from '@/components/components/SignUpButton';
-import Divider from '@/components/components/Divider'
+import SendVerificationButton from '@/components/components/SendVerificationButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function HomeScreen() {
+export default function ForgotScreen() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [passwordCheck, setPasswordCheck] = React.useState('');
@@ -25,7 +23,7 @@ export default function HomeScreen() {
       <View style={styles.center}>
         <View style={styles.landing}>
           <Text style={styles.header}>
-            Sign Up
+            Forgot Password
           </Text>
 
 
@@ -39,42 +37,15 @@ export default function HomeScreen() {
               onChangeText={setEmail}       // Update state when text changes
             />
           </View>
-          
-          <View style={styles.inputWrapper}>
-            <Ionicons name="lock-closed-outline" size={20} color="gray" style={styles.icon} /> {/* Lock Icon */}
-            <TextInput
-              style={styles.textBox}
-              placeholder="Password"
-              placeholderTextColor="gray"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry={true}
-            />
-          </View>
-          
-          <View style={styles.inputWrapper}>
-            <Ionicons name="checkmark-outline" size={20} color="gray" style={styles.icon} /> {/* Lock Icon */}
-            <TextInput
-              style={styles.textBox}
-              placeholder="Verify Password"
-              placeholderTextColor="gray"  // Placeholder text color
-              value={passwordCheck}
-              onChangeText={setPasswordCheck}       // Update state when text changes
-              secureTextEntry={true}       // Masks the password text
-            />
-          </View>
-          
-          
-          
-          <LoginButton title='Sign Up' onPress={() => {
-                router.push('/(tabs)');  // Navigate to the login page
-          }} />
 
-          <Divider />
-
-          <SignUpButton title='Back' onPress={() => {
+          <SendVerificationButton title='Send Reset Instructions' onPress={() => {
                 router.push('/');  // Navigate to the login page
           }} />
+          <View style={styles.backWrapper}>
+            <Link href='/' style={styles.back}>
+                Return to sign in
+            </Link>
+          </View>
 
         </View>
       </View>
@@ -128,6 +99,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,         // Only the bottom border
     borderBottomColor: '#ccc',    // Bottom border color (light gray)
+    marginBottom: 10,
+  },
+  backWrapper: {
+    // marginTop: 10,
+  },
+  back: {
+    color: '#2A9DF4',
+    // textAlign: 'right',
   },
   icon: {
     marginHorizontal: 10,

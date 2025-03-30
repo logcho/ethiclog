@@ -7,8 +7,8 @@ import { ThemedView } from '@/components/ThemedView';
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView>
-      <View style={styles.wrapper}>
+    <SafeAreaView style={styles.wrapper}>
+      <View>
         <Text style={styles.text}>
           Home
         </Text>
