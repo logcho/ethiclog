@@ -5,12 +5,12 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function HomeScreen() {
+export default function PollScreen() {
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.center}>
         <Text style={styles.header}>
-          Home
+          Poll
         </Text>
       </View>
     </SafeAreaView>
