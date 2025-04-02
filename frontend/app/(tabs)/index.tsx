@@ -8,7 +8,7 @@ import { ThemedView } from '@/components/ThemedView';
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.wrapper}>
-      <View>
+      <View style={styles.center}>
         <Text style={styles.text}>
           Home
         </Text>
@@ -24,5 +24,10 @@ const styles = StyleSheet.create({
   text: {
     // color: 'white',
     fontSize: 30,
+  },
+  center: {
+    flex: 1,                // Takes up all available space
+    justifyContent: 'center', // Centers vertically
+    alignItems: 'center',     // Centers horizontally
   },
 });
