@@ -53,7 +53,7 @@ export default function HomeScreen() {
 
           <View style={styles.forgotWrapper}>
             <Link href='/forgot' style={styles.forgot}>
-                Forgot Password?
+              <Text>Forgot Password?</Text>
             </Link>
           </View>
           

@@ -1,2 +1,2 @@
-# quizlog
+# ethiclog
 Chatbot

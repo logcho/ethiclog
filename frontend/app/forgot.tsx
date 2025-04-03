@@ -43,7 +43,7 @@ export default function ForgotScreen() {
           }} />
           <View style={styles.backWrapper}>
             <Link href='/' style={styles.back}>
-                Return to sign in
+              <Text>Return to sign in</Text>
             </Link>
           </View>
 
