@@ -1,5 +1,4 @@
-import { Image, StyleSheet, Platform, View, Text, TextInput } from 'react-native';
-
+import { Image, StyleSheet, Platform, View, Text, TextInput, Alert } from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -10,66 +9,78 @@ import React from 'react';
 
 import LoginButton from '@/components/components/LoginButton';
 import SignUpButton from '@/components/components/SignUpButton';
-import Divider from '@/components/components/Divider'
+import Divider from '@/components/components/Divider';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/firebaseConfig'; // Adjust path if needed
 
 export default function HomeScreen() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const router = useRouter(); // Hook to get the router
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
+      const user = userCredential.user;
+      console.log('Logged in:', user.email);
+      router.push('/(tabs)');
+    } catch (error: any) {
+      console.error('Login error:', error.message);
+      Alert.alert('Login Failed', error.message);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.wrapper}>
-
       <View style={styles.center}>
         <View style={styles.landing}>
-          <Text style={styles.header}>
-            Login
-          </Text>
-
+          <Text style={styles.header}>Login</Text>
 
           <View style={styles.inputWrapper}>
-            <Ionicons name="mail-outline" size={20} color="gray" style={styles.icon} /> {/* Email Icon */}
+            <Ionicons name="mail-outline" size={20} color="gray" style={styles.icon} />
             <TextInput
               style={styles.textBox}
               placeholder="Email"
-              placeholderTextColor="gray"  // Placeholder text color
+              placeholderTextColor="gray"
               value={email}
-              onChangeText={setEmail}       // Update state when text changes
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
             />
           </View>
-          
+
           <View style={styles.inputWrapper}>
-            <Ionicons name="lock-closed-outline" size={20} color="gray" style={styles.icon} /> {/* Lock Icon */}
+            <Ionicons name="lock-closed-outline" size={20} color="gray" style={styles.icon} />
             <TextInput
               style={styles.textBox}
               placeholder="Password"
               placeholderTextColor="gray"
               value={password}
               onChangeText={setPassword}
-              secureTextEntry={true}
+              secureTextEntry
             />
           </View>
 
           <View style={styles.forgotWrapper}>
-            <Link href='/forgot' style={styles.forgot}>
+            <Link href="/forgot" style={styles.forgot}>
               <Text>Forgot Password?</Text>
             </Link>
           </View>
-          
-          <LoginButton title='Login' onPress={() => {
-                router.push('/(tabs)');  // Navigate to the login page
-          }} />
+
+          <LoginButton title="Login" onPress={handleLogin} />
 
           <Divider />
 
-          <SignUpButton title='Sign Up' onPress={() => {
-                router.push('/signup');  // Navigate to the login page
-          }} />
-
+          <SignUpButton
+            title="Sign Up"
+            onPress={() => {
+              router.push('/signup');
+            }}
+          />
         </View>
       </View>
-
     </SafeAreaView>
   );
 }
@@ -83,9 +94,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   center: {
-    flex: 1,                // Takes up all available space
-    justifyContent: 'center', // Centers vertically
-    alignItems: 'center',     // Centers horizontally
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   header: {
     fontSize: 60,
@@ -95,28 +106,27 @@ const styles = StyleSheet.create({
   landing: {
     height: 800,
     width: 300,
-    justifyContent: 'center', // Centers vertically
+    justifyContent: 'center',
   },
   text: {
-    // color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
   },
   textBox: {
-    // color: 'white',                // Input text color (blue when typing)
-    fontWeight: '200',      // Makes the text light
+    fontWeight: '200',
     marginVertical: 10,
     fontSize: 20,
-    backgroundColor: 'transparent', // Transparent background
+    backgroundColor: 'transparent',
     paddingVertical: 8,
-    borderWidth: 0,               // Ensure no border on focus or blur
-    outlineWidth: 0,              // Remove focus outline
+    borderWidth: 0,
+    outlineWidth: 0,
+    flex: 1,
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,         // Only the bottom border
-    borderBottomColor: '#ccc',    // Bottom border color (light gray)
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
   icon: {
     marginHorizontal: 10,

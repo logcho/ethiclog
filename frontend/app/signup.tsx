@@ -12,13 +12,30 @@ import LoginButton from '@/components/components/LoginButton';
 import SignUpButton from '@/components/components/SignUpButton';
 import Divider from '@/components/components/Divider'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/firebaseConfig';
 
 export default function HomeScreen() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [passwordCheck, setPasswordCheck] = React.useState('');
   const router = useRouter(); // Hook to get the router
+  // Inside HomeScreen component
+  const handleSignUp = async () => {
+    if (password !== passwordCheck) {
+      alert('Passwords do not match!');
+      return;
+    }
 
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert('Signup successful!');
+      router.push('/(tabs)'); // Go to main tab after signup
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+  
   return (
     <SafeAreaView style={styles.wrapper}>
 
@@ -67,7 +84,7 @@ export default function HomeScreen() {
           
           
           <LoginButton title='Sign Up' onPress={() => {
-                router.push('/(tabs)');  // Navigate to the login page
+            handleSignUp();
           }} />
 
           <Divider />

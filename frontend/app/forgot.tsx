@@ -1,9 +1,4 @@
-import { Image, StyleSheet, Platform, View, Text, TextInput } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Alert, Image, StyleSheet, Platform, View, Text, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, useRouter } from 'expo-router';
 import React from 'react';
@@ -11,45 +6,59 @@ import React from 'react';
 import SendVerificationButton from '@/components/components/SendVerificationButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+// Firebase
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { app } from '@/firebaseConfig'; // adjust the path if needed
+
 export default function ForgotScreen() {
   const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [passwordCheck, setPasswordCheck] = React.useState('');
-  const router = useRouter(); // Hook to get the router
+  const router = useRouter();
+
+  const handlePasswordReset = async () => {
+    if (!email) {
+      Alert.alert('Missing Email', 'Please enter your email address.');
+      return;
+    }
+
+    const auth = getAuth(app);
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      Alert.alert('Email Sent', 'Please check your inbox for password reset instructions.');
+      router.push('/');
+    } catch (error: any) {
+      Alert.alert('Error', error.message);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.wrapper}>
-
       <View style={styles.center}>
         <View style={styles.landing}>
-          <Text style={styles.header}>
-            Forgot Password
-          </Text>
-
+          <Text style={styles.header}>Forgot Password</Text>
 
           <View style={styles.inputWrapper}>
-            <Ionicons name="mail-outline" size={20} color="gray" style={styles.icon} /> {/* Email Icon */}
+            <Ionicons name="mail-outline" size={20} color="gray" style={styles.icon} />
             <TextInput
               style={styles.textBox}
               placeholder="Email"
-              placeholderTextColor="gray"  // Placeholder text color
+              placeholderTextColor="gray"
               value={email}
-              onChangeText={setEmail}       // Update state when text changes
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
             />
           </View>
 
-          <SendVerificationButton title='Send Reset Instructions' onPress={() => {
-                router.push('/');  // Navigate to the login page
-          }} />
+          <SendVerificationButton title='Send Reset Instructions' onPress={handlePasswordReset} />
+
           <View style={styles.backWrapper}>
             <Link href='/' style={styles.back}>
               <Text>Return to sign in</Text>
             </Link>
           </View>
-
         </View>
       </View>
-
     </SafeAreaView>
   );
 }

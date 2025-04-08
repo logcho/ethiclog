@@ -16,7 +16,7 @@ export default function PollScreen() {
         </Text>
         <View style={styles.question}>
           <Text style={styles.text}>
-            Should AI have the authority to make moral and ethical decisions without human oversight?
+            How do you feel about AI?
           </Text>
         </View>
         <Button title='For' onPress={() => {}}/>

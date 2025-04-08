@@ -24,10 +24,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
+    width: 'auto',
   },
   text: {
     color: '#565656',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '200',      // Makes the text light
   },
   icon: {

@@ -10,8 +10,13 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.center}>
         <Text style={styles.header}>
-          Home
+          Results
         </Text>
+        <View style={styles.textWrapper}>
+          <Text style={styles.text}>
+            AI ethics is a critical field addressing fairness, accountability, transparency, and privacy in AI systems. Bias in AI models can lead to discrimination, reinforcing societal inequalities. The use of AI in surveillance and decision-making raises concerns about individual rights and consent. Additionally, job displacement due to automation poses economic and social challenges. Ethical AI development requires regulations, responsible data usage, and human oversight to ensure AI benefits society while minimizing harm. Striking a balance between innovation and ethical considerations is key to AI’s responsible advancement.
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -24,7 +29,9 @@ const styles = StyleSheet.create({
   },
   text: {
     // color: 'white',
-    fontSize: 30,
+    fontSize: 20,
+    fontWeight: '200',
+    textAlign: 'center'
   },
   center: {
     flex: 1,                // Takes up all available space
@@ -34,6 +41,9 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 60,
     fontWeight: 'bold',
-    paddingBottom: 30,
+    paddingBottom: 10,
   },
+  textWrapper: {
+    width: 300,
+  }
 });

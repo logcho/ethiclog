@@ -20,12 +20,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
-    width: 200,
+    width: 'auto',
   },
   text: {
     color: 'white',
     fontSize: 20,
     fontWeight: '200',      // Makes the text light
+    textAlign: 'center',
   }
 });
 
